@@ -1,66 +1,47 @@
-"""
-Task 5 — Semantic Search Module.
+"""Task 5 - Local semantic search over Task 4 chunks."""
 
-Viết module tìm kiếm ngữ nghĩa (dense retrieval) trên vector store.
+from collections import Counter
 
-Yêu cầu:
-    - Input: query string + top_k
-    - Output: danh sách chunks có score, sorted descending
-    - Phải tương thích với embedding model và vector store ở Task 4
-"""
+from .task4_chunking_indexing import chunk_documents, load_documents
+from .text_utils import cosine_from_counters, tokenize
+
+
+def _load_corpus() -> list[dict]:
+    return chunk_documents(load_documents())
 
 
 def semantic_search(query: str, top_k: int = 10) -> list[dict]:
     """
-    Tìm kiếm ngữ nghĩa sử dụng vector similarity.
+    Search chunks with normalized token-vector cosine similarity.
 
-    Args:
-        query: Câu truy vấn
-        top_k: Số lượng kết quả tối đa
-
-    Returns:
-        List of {
-            'content': str,      # Nội dung chunk
-            'score': float,      # Cosine similarity score
-            'metadata': dict     # source, doc_type, chunk_index
-        }
-        Sorted by score descending.
+    This is a local stand-in for dense retrieval: it is deterministic, offline,
+    sorted by descending score, and uses the same Task 4 chunks.
     """
-    # TODO: Implement semantic search
-    #
-    # Bước 1: Embed query bằng cùng model ở Task 4
-    # Bước 2: Query vector store (cosine similarity)
-    # Bước 3: Return top_k results
-    #
-    # Ví dụ với Weaviate:
-    # import weaviate
-    # from sentence_transformers import SentenceTransformer
-    #
-    # model = SentenceTransformer("BAAI/bge-m3")
-    # query_embedding = model.encode(query).tolist()
-    #
-    # client = weaviate.connect_to_local()
-    # collection = client.collections.get("DrugLawDocs")
-    #
-    # results = collection.query.near_vector(
-    #     near_vector=query_embedding,
-    #     limit=top_k,
-    #     return_metadata=MetadataQuery(distance=True)
-    # )
-    #
-    # return [
-    #     {
-    #         "content": obj.properties["content"],
-    #         "score": 1 - obj.metadata.distance,  # distance → similarity
-    #         "metadata": {"source": obj.properties["source"], ...}
-    #     }
-    #     for obj in results.objects
-    # ]
-    raise NotImplementedError("Implement semantic_search")
+    if top_k <= 0:
+        return []
+
+    query_vector = Counter(tokenize(query))
+    if not query_vector:
+        return []
+
+    results = []
+    for chunk in _load_corpus():
+        chunk_vector = Counter(tokenize(chunk.get("content", "")))
+        score = cosine_from_counters(query_vector, chunk_vector)
+        if score <= 0:
+            continue
+        results.append(
+            {
+                "content": chunk["content"],
+                "score": float(score),
+                "metadata": chunk.get("metadata", {}),
+            }
+        )
+
+    results.sort(key=lambda item: item["score"], reverse=True)
+    return results[:top_k]
 
 
 if __name__ == "__main__":
-    # Test
-    results = semantic_search("hình phạt cho tội tàng trữ ma tuý", top_k=5)
-    for r in results:
-        print(f"[{r['score']:.3f}] {r['content'][:100]}...")
+    for result in semantic_search("hinh phat ma tuy", top_k=5):
+        print(f"[{result['score']:.3f}] {result['content'][:100]}...")

@@ -1,0 +1,10 @@
+# Chi Dan, An Tay la nhung mat xich cuoi trong duong day ma tuy
+
+**Source:** https://lifestyle.znews.vn/chi-dan-an-tay-la-nhung-mat-xich-cuoi-trong-duong-day-ma-tuy-post1510988.html
+**Crawled:** 2026-06-08T14:00:00+07:00
+
+---
+
+# Chi Dan, An Tay la nhung mat xich cuoi trong duong day ma tuy
+
+Bai bao tu ZNews tuong thuat viec co quan chuc nang TP.HCM mo rong dieu tra mot duong day van chuyen va tieu thu ma tuy tu nuoc ngoai ve Viet Nam. Trong nhom nguoi bi nhac ten co ca si Chi Dan va nguoi mau, dien vien An Tay. Noi dung bai viet tap trung vao vai tro cua cac bi can o khau tieu thu, cach chuyen an duoc mo rong tu vu tiep vien hang khong van chuyen ma tuy, va nhung dau moi ma cong an thu thap trong qua trinh dieu tra. Bai viet cung neu thong tin ca si Chi Dan ten that la Nguyen Trung Hieu, bi phat hien trong mot buoi tiec co lien quan den ma tuy tai quan Tan Binh. Truong hop nay duoc dua vao bo du lieu vi lien quan truc tiep den nghe si Viet Nam va hanh vi su dung, to chuc su dung hoac tieu thu ma tuy. Metadata giu URL goc de co the doi chieu lai nguon bao khi can crawl lai bang Crawl4AI.
