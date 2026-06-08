@@ -22,6 +22,10 @@ owners, evaluation results, UI smoke checks, and test evidence.
   dataset creator update.
 - Integrated Dat's RAG core from `origin/ntddatj` into
   `group_project/src/module_rag_core/`.
+- Merged Dat's latest RAG core improvements: Gemini embedding fallback,
+  Weaviate Cloud support, real RAG core contract smoke test, and
+  `group_project/import_data.py` for loading standardized markdown into
+  Weaviate.
 - Kept Quan's UI module in place and connected it through
   `RAGCoreInterface`.
 - Standardized evaluation deliverables under
@@ -98,7 +102,7 @@ Observed results:
 
 - Dataset validator: passed, 17 questions.
 - Evaluation pipeline: passed, generated `results.md`.
-- Integration test: `1 passed`.
+- Integration test: passed.
 - Compile check: passed.
 
 ## Remaining Work

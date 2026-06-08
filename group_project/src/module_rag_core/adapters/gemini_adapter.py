@@ -37,18 +37,19 @@ class GeminiGenerativeAIAdapter(LLMServicePort):
         if not self.api_key or genai is None:
             return [0.0] * 1024
 
-        try:
-            response = genai.embed_content(
-                model="models/text-embedding-004",
-                content=query,
-                task_type="retrieval_query",
-            )
-            if isinstance(response, dict) and "embedding" in response:
-                return response["embedding"]
-            if hasattr(response, "embedding"):
-                return response.embedding
-        except Exception as exc:
-            print(f"Gemini embed_content error: {exc}")
+        for model_name in ["models/text-embedding-004", "models/embedding-001"]:
+            try:
+                response = genai.embed_content(
+                    model=model_name,
+                    content=query,
+                    task_type="retrieval_query",
+                )
+                if isinstance(response, dict) and "embedding" in response:
+                    return response["embedding"]
+                if hasattr(response, "embedding"):
+                    return response.embedding
+            except Exception as exc:
+                print(f"Gemini embed_content error with {model_name}: {exc}")
         return [0.0] * 1024
 
     def condense_query(
@@ -63,9 +64,16 @@ class GeminiGenerativeAIAdapter(LLMServicePort):
             f"{message.role}: {message.content}" for message in chat_history
         )
         prompt = (
-            "Rewrite the latest Vietnamese follow-up question into a standalone "
-            "question. Return only the rewritten question.\n\n"
-            f"History:\n{history_text}\n\nLatest question: {latest_query}"
+            "Rewrite the latest Vietnamese message into a standalone query.\n"
+            "Rules:\n"
+            "1. If the message is a greeting, thanks, or small talk, return it unchanged.\n"
+            "2. For legal lookup questions, expand the query with close Vietnamese "
+            "legal terms to improve lexical search. Examples: 'hit heroin' should "
+            "include 'su dung trai phep chat ma tuy'; 'trong can sa' should include "
+            "'trong cay co chua chat ma tuy'; 'bi phat the nao' should include "
+            "'xu ly vi pham, xu phat, hinh phat'.\n"
+            "3. Return only the rewritten query, with no explanation.\n\n"
+            f"History:\n{history_text}\n\nLatest message: {latest_query}"
         )
 
         try:
