@@ -57,3 +57,26 @@ def test_system_contract_integration():
     assert len(result.sources) == 1
     assert result.sources[0].id == "doc_fake_1"
     assert result.sources[0].score == 0.95
+
+
+def test_real_rag_core_contract():
+    from src.module_rag_core.rag_engine import RAGCoreEngine
+    from system_contracts import RAGConfig, RAGAnswer, Document
+
+    engine = RAGCoreEngine()
+    config = RAGConfig(
+        gemini_api_key="test-key",
+        llm_model_name="gemini-2.5-flash",
+        temperature=0.2,
+        top_k=3,
+        use_reranker=False,
+    )
+    engine.configure(config)
+
+    result = engine.generate_answer("test-session", "Test query", [])
+    assert isinstance(result, RAGAnswer)
+    assert result.standalone_query == "Test query"
+    assert len(result.sources) > 0
+    assert isinstance(result.sources[0], Document)
+    assert "câu trả lời giả lập" in result.answer
+
