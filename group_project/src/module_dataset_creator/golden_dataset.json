@@ -1,0 +1,107 @@
+[
+  {
+    "question": "Hình phạt cho tội tàng trữ trái phép chất ma tuý theo Điều 249 Bộ luật Hình sự?",
+    "expected_answer": "Phạt tù từ 1 đến 5 năm đối với trường hợp tàng trữ từ 1g đến dưới 5g heroin hoặc cocaine, hoặc chất ma tuý khác với khối lượng tương đương.",
+    "expected_context": [
+      "Bộ luật Hình sự 2015, Điều 249 quy định hình phạt tù từ 01 năm đến 05 năm đối với hành vi tàng trữ trái phép chất ma túy mà không nhằm mục đích mua bán, vận chuyển, sản xuất trái phép chất ma túy thuộc một trong các trường hợp quy định tại Khoản 1."
+    ]
+  },
+  {
+    "question": "Luật Phòng chống ma tuý 2021 quy định những biện pháp cai nghiện nào?",
+    "expected_answer": "Biện pháp cai nghiện ma túy bao gồm cai nghiện ma túy tự nguyện và cai nghiện ma túy bắt buộc. Cai nghiện ma túy tự nguyện thực hiện tại gia đình, cộng đồng hoặc cơ sở cai nghiện; cai nghiện bắt buộc tại cơ sở cai nghiện công lập.",
+    "expected_context": [
+      "Điều 28. Các biện pháp cai nghiện ma túy\n1. Biện pháp cai nghiện ma túy bao gồm:\na) Cai nghiện ma túy tự nguyện;\nb) Cai nghiện ma túy bắt buộc.\n2. Biện pháp cai nghiện ma túy tự nguyện được thực hiện tại gia đình, cộng đồng hoặc tại cơ sở cai nghiện ma túy; biện pháp cai nghiện ma túy bắt buộc được thực hiện tại cơ sở cai nghiện ma túy công lập."
+    ]
+  },
+  {
+    "question": "Danh mục các chất ma tuý thuộc nhóm I theo quy định pháp luật Việt Nam gồm những chất nào?",
+    "expected_answer": "Nhóm I gồm các chất ma tuý tuyệt đối cấm sử dụng trong y học và đời sống xã hội, trừ trường hợp sử dụng trong phân tích, kiểm nghiệm, nghiên cứu khoa học, điều tra tội phạm theo quy định đặc biệt của cơ quan có thẩm quyền.",
+    "expected_context": [
+      "Nghị định 57/2022/NĐ-CP ban hành Danh mục các chất ma túy và tiền chất, trong đó Danh mục I bao gồm các chất ma túy tuyệt đối cấm sử dụng trong y học và đời sống xã hội; việc sử dụng các chất này trong phân tích, kiểm nghiệm, nghiên cứu khoa học, điều tra tội phạm theo quy định đặc biệt của cơ quan có thẩm quyền."
+    ]
+  },
+  {
+    "question": "Thế nào là 'Người sử dụng trái phép chất ma túy' theo Luật Phòng chống ma túy 2021?",
+    "expected_answer": "Người sử dụng trái phép chất ma túy là người có hành vi sử dụng chất ma túy mà không được sự cho phép của người hoặc cơ quan chuyên môn có thẩm quyền và xét nghiệm chất ma túy trong cơ thể có kết quả dương tính.",
+    "expected_context": [
+      "Điều 2. Giải thích từ ngữ\n10. Người sử dụng trái phép chất ma túy là người có hành vi sử dụng chất ma túy mà không được sự cho phép của người hoặc cơ quan chuyên môn có thẩm quyền và xét nghiệm chất ma túy trong cơ thể có kết quả dương tính."
+    ]
+  },
+  {
+    "question": "Theo Luật Phòng, chống ma túy 2021, quy trình cai nghiện ma túy gồm những giai đoạn nào?",
+    "expected_answer": "Quy trình cai nghiện ma túy bao gồm 5 giai đoạn: a) Tiếp nhận, phân loại; b) Điều trị cắt cơn, giải độc, điều trị các rối loạn tâm thần, điều trị các bệnh lý khác; c) Giáo dục, tư vấn, phục hồi hành vi, nhân cách; d) Lao động trị liệu, học nghề; đ) Chuẩn bị tái hòa nhập cộng đồng.",
+    "expected_context": [
+      "Điều 29. Quy trình cai nghiện ma túy\n1. Quy trình cai nghiện ma túy bao gồm các giai đoạn sau đây:\na) Tiếp nhận, phân loại;\nb) Điều trị cắt cơn, giải độc, điều trị các rối loạn tâm thần, điều trị các bệnh lý khác;\nc) Giáo dục, tư vấn, phục hồi hành vi, nhân cách;\nd) Lao động trị liệu, học nghề;\nđ) Chuẩn bị tái hòa nhập cộng đồng."
+    ]
+  },
+  {
+    "question": "Các hành vi nào bị nghiêm cấm theo quy định tại Điều 5 Luật Phòng chống ma túy 2021?",
+    "expected_answer": "Nghiêm cấm các hành vi: trồng cây chứa chất ma túy; nghiên cứu, sản xuất, tàng trữ, vận chuyển, mua bán trái phép chất ma túy; chiếm đoạt chất ma túy; sử dụng, tổ chức sử dụng trái phép chất ma túy; cưỡng bức, lôi kéo người khác sử dụng; sản xuất dụng cụ sử dụng ma túy; chống cản trở xét nghiệm, quản lý cai nghiện; kỳ thị người sử dụng ma túy; hướng dẫn sản xuất ma túy.",
+    "expected_context": [
+      "Điều 5. Các hành vi bị nghiêm cấm\n1. Trồng cây có chứa chất ma túy, hướng dẫn trồng cây có chứa chất ma túy.\n2. Nghiên cứu, giám định, kiểm nghiệm, kiểm định, sản xuất, tàng trữ, vận chuyển, bảo quản, tồn trữ, mua bán, phân phối, xử lý, trao đổi, xuất khẩu, nhập khẩu, tạm nhập, tái xuất, tạm xuất, tái nhập, quá cảnh trái phép chất ma túy...\n5. Sử dụng, tổ chức sử dụng trái phép chất ma túy; cưỡng bức, lôi kéo người khác sử dụng trái phép chất ma túy; chứa chấp, hỗ trợ việc sử dụng trái phép chất ma túy.\n7. Chống lại hoặc cản trở việc xét nghiệm chất ma túy trong cơ thể, xác định tình trạng nghiện ma túy, quản lý người sử dụng trái phép chất ma túy, cai nghiện ma túy...\n11. Kỳ thị người sử dụng trái phép chất ma túy, người cai nghiện ma túy, người sau cai nghiện ma túy."
+    ]
+  },
+  {
+    "question": "Cơ quan chuyên trách phòng, chống tội phạm về ma túy gồm những lực lượng nào?",
+    "expected_answer": "Gồm cơ quan chuyên trách thuộc Công an nhân dân, và cơ quan chuyên trách thuộc Bộ đội Biên phòng, Cảnh sát biển Việt Nam, Hải quan.",
+    "expected_context": [
+      "Điều 11. Cơ quan chuyên trách phòng, chống tội phạm về ma túy\n1. Cơ quan chuyên trách phòng, chống tội phạm về ma túy bao gồm:\na) Cơ quan chuyên trách phòng, chống tội phạm về ma túy thuộc Công an nhân dân;\nb) Cơ quan chuyên trách phòng, chống tội phạm về ma túy thuộc Bộ đội Biên phòng, Cảnh sát biển Việt Nam và Hải quan."
+    ]
+  },
+  {
+    "question": "Thời hạn quản lý người sử dụng trái phép chất ma túy theo quyết định của Chủ tịch Ủy ban nhân dân cấp xã là bao lâu?",
+    "expected_answer": "Thời hạn quản lý người sử dụng trái phép chất ma túy là 01 năm kể từ ngày Chủ tịch Ủy ban nhân dân cấp xã ra quyết định quản lý.",
+    "expected_context": [
+      "Điều 23. Quản lý người sử dụng trái phép chất ma túy\n2. Thời hạn quản lý người sử dụng trái phép chất ma túy là 01 năm kể từ ngày Chủ tịch Ủy ban nhân dân cấp xã ra quyết định quản lý."
+    ]
+  },
+  {
+    "question": "Người nghiện ma túy từ đủ 18 tuổi trở lên bị đưa vào cơ sở cai nghiện bắt buộc trong những trường hợp nào?",
+    "expected_answer": "Bị đưa vào cơ sở cai nghiện bắt buộc khi: 1. Không đăng ký, thực hiện hoặc tự ý chấm dứt cai nghiện tự nguyện; 2. Phát hiện sử dụng ma túy trong thời gian cai nghiện tự nguyện; 3. Không đăng ký, thực hiện hoặc tự ý chấm dứt điều trị nghiện chất dạng thuốc phiện bằng thuốc thay thế; 4. Tái nghiện trong thời gian quản lý sau cai nghiện.",
+    "expected_context": [
+      "Điều 32. Đối tượng bị áp dụng biện pháp xử lý hành chính đưa vào cơ sở cai nghiện bắt buộc\nNgười nghiện ma túy từ đủ 18 tuổi trở lên bị áp dụng biện pháp xử lý hành chính đưa vào cơ sở cai nghiện bắt buộc khi thuộc một trong các trường hợp sau đây:\n1. Không đăng ký, không thực hiện hoặc tự ý chấm dứt cai nghiện ma túy tự nguyện;\n2. Trong thời gian cai nghiện ma túy tự nguyện bị phát hiện sử dụng trái phép chất ma túy;\n3. Người nghiện ma túy các chất dạng thuốc phiện không đăng ký, không thực hiện hoặc tự ý chấm dứt điều trị nghiện các chất dạng thuốc phiện bằng thuốc thay thế...\n4. Trong thời gian quản lý sau cai nghiện ma túy mà tái nghiện."
+    ]
+  },
+  {
+    "question": "Thời hạn cai nghiện ma túy bắt buộc đối với người từ đủ 12 tuổi đến dưới 18 tuổi là bao lâu?",
+    "expected_answer": "Thời hạn cai nghiện ma túy bắt buộc đối với người nghiện ma túy từ đủ 12 tuổi đến dưới 18 tuổi là từ đủ 06 tháng đến 12 tháng.",
+    "expected_context": [
+      "Điều 33. Cai nghiện ma túy cho người từ đủ 12 tuổi đến dưới 18 tuổi\n3. Thời hạn cai nghiện ma túy bắt buộc đối với người nghiện ma túy từ đủ 12 tuổi đến dưới 18 tuổi là từ đủ 06 tháng đến 12 tháng."
+    ]
+  },
+  {
+    "question": "Ai có thẩm quyền quyết định đưa người nghiện ma túy từ đủ 12 tuổi đến dưới 18 tuổi vào cơ sở cai nghiện bắt buộc?",
+    "expected_answer": "Tòa án nhân dân cấp huyện quyết định việc đưa người nghiện ma túy từ đủ 12 tuổi đến dưới 18 tuổi vào cơ sở cai nghiện bắt buộc, và đây không phải là biện pháp xử lý hành chính.",
+    "expected_context": [
+      "Điều 33. Cai nghiện ma túy cho người từ đủ 12 tuổi đến dưới 18 tuổi\n4. Việc đưa người nghiện ma túy từ đủ 12 tuổi đến dưới 18 tuổi vào cơ sở cai nghiện bắt buộc do Tòa án nhân dân cấp huyện quyết định và không phải là biện pháp xử lý hành chính."
+    ]
+  },
+  {
+    "question": "Thời hạn cai nghiện ma túy tự nguyện tại gia đình, cộng đồng là bao lâu?",
+    "expected_answer": "Thời hạn cai nghiện ma túy tự nguyện tại gia đình, cộng đồng là từ đủ 06 tháng đến 12 tháng.",
+    "expected_context": [
+      "Điều 30. Cai nghiện ma túy tự nguyện tại gia đình, cộng đồng\n2. Thời hạn cai nghiện ma túy tự nguyện tại gia đình, cộng đồng là từ đủ 06 tháng đến 12 tháng."
+    ]
+  },
+  {
+    "question": "Chất hướng thần là gì theo định nghĩa của Luật Phòng chống ma túy 2021?",
+    "expected_answer": "Chất hướng thần là chất kích thích hoặc ức chế thần kinh hoặc gây ảo giác, nếu sử dụng nhiều lần có thể dẫn tới tình trạng nghiện đối với người sử dụng.",
+    "expected_context": [
+      "Điều 2. Giải thích từ ngữ\n3. Chất hướng thần là chất kích thích hoặc ức chế thần kinh hoặc gây ảo giác, nếu sử dụng nhiều lần có thể dẫn tới tình trạng nghiện đối với người sử dụng."
+    ]
+  },
+  {
+    "question": "Những nguồn tài chính nào bảo đảm cho hoạt động phòng, chống ma túy?",
+    "expected_answer": "Nguồn tài chính cho phòng, chống ma túy bao gồm: ngân sách nhà nước; nguồn tài trợ, viện trợ, đầu tư, tặng cho của tổ chức, cá nhân trong và ngoài nước; chi trả của gia đình, người nghiện ma túy; và các nguồn tài chính hợp pháp khác.",
+    "expected_context": [
+      "Điều 4. Nguồn tài chính cho phòng, chống ma túy\n1. Ngân sách nhà nước.\n2. Nguồn tài trợ, viện trợ, đầu tư, tặng cho của tổ chức, cá nhân trong nước và ngoài nước.\n3. Chi trả của gia đình, người nghiện ma túy.\n4. Các nguồn tài chính hợp pháp khác."
+    ]
+  },
+  {
+    "question": "Giai đoạn 2 của quy trình cai nghiện ma túy gồm những hoạt động chuyên môn nào?",
+    "expected_answer": "Giai đoạn 2 bao gồm các hoạt động: điều trị cắt cơn, giải độc, điều trị các rối loạn tâm thần, điều trị các bệnh lý khác.",
+    "expected_context": [
+      "Điều 29. Quy trình cai nghiện ma túy\n1. Quy trình cai nghiện ma túy bao gồm các giai đoạn sau đây:\nb) Điều trị cắt cơn, giải độc, điều trị các rối loạn tâm thần, điều trị các bệnh lý khác;"
+    ]
+  }
+]

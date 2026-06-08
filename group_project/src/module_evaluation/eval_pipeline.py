@@ -15,7 +15,7 @@ Yêu cầu:
 import json
 from pathlib import Path
 
-GOLDEN_DATASET_PATH = Path(__file__).parent / "golden_dataset.json"
+GOLDEN_DATASET_PATH = Path(__file__).parent.parent / "module_dataset_creator" / "golden_dataset.json"
 RESULTS_PATH = Path(__file__).parent / "results.md"
 
 
@@ -48,12 +48,16 @@ def evaluate_with_deepeval(rag_pipeline, golden_dataset: list[dict]) -> dict:
     #
     # test_cases = []
     # for item in golden_dataset:
-    #     result = rag_pipeline.generate_with_citation(item["question"])
+    #     result = rag_pipeline.generate_answer(
+    #         session_id="eval-session",
+    #         user_query=item["question"],
+    #         chat_history=[]
+    #     )
     #     test_case = LLMTestCase(
     #         input=item["question"],
-    #         actual_output=result["answer"],
+    #         actual_output=result.answer,
     #         expected_output=item["expected_answer"],
-    #         retrieval_context=[c["content"] for c in result["sources"]],
+    #         retrieval_context=[doc.content for doc in result.sources],
     #     )
     #     test_cases.append(test_case)
     #
@@ -93,10 +97,14 @@ def evaluate_with_ragas(rag_pipeline, golden_dataset: list[dict]) -> dict:
     # eval_data = {"question": [], "answer": [], "contexts": [], "ground_truth": []}
     #
     # for item in golden_dataset:
-    #     result = rag_pipeline.generate_with_citation(item["question"])
+    #     result = rag_pipeline.generate_answer(
+    #         session_id="eval-session",
+    #         user_query=item["question"],
+    #         chat_history=[]
+    #     )
     #     eval_data["question"].append(item["question"])
-    #     eval_data["answer"].append(result["answer"])
-    #     eval_data["contexts"].append([c["content"] for c in result["sources"]])
+    #     eval_data["answer"].append(result.answer)
+    #     eval_data["contexts"].append([doc.content for doc in result.sources])
     #     eval_data["ground_truth"].append(item["expected_answer"])
     #
     # dataset = Dataset.from_dict(eval_data)
@@ -138,7 +146,11 @@ def evaluate_with_trulens(rag_pipeline, golden_dataset: list[dict]) -> dict:
     #
     # with tru_rag as recording:
     #     for item in golden_dataset:
-    #         rag_pipeline.generate_with_citation(item["question"])
+    #         rag_pipeline.generate_answer(
+    #             session_id="eval-session",
+    #             user_query=item["question"],
+    #             chat_history=[]
+    #         )
     #
     # # Dashboard: from trulens.dashboard import run_dashboard; run_dashboard()
     raise NotImplementedError("Implement evaluate_with_trulens")
@@ -201,14 +213,18 @@ if __name__ == "__main__":
     golden_dataset = load_golden_dataset()
     print(f"Loaded {len(golden_dataset)} test cases")
 
-    # TODO: Import your RAG pipeline
-    # from src.task10_generation import generate_with_citation
+    # TODO: Import and configure your RAG pipeline
+    #     # from src.module_rag_core.rag_engine import RAGCoreEngine
+    #     # from system_contracts import RAGConfig
+    #     #
+    #     # pipeline = RAGCoreEngine()
+    #     # pipeline.configure(RAGConfig(gemini_api_key="your-api-key"))
     #
     # Chọn 1 framework:
     # results = evaluate_with_deepeval(pipeline, golden_dataset)
     # results = evaluate_with_ragas(pipeline, golden_dataset)
     # results = evaluate_with_trulens(pipeline, golden_dataset)
-    #
+    
     # comparison = compare_configs(pipeline, golden_dataset)
     # export_results(results, comparison)
     print("⚠ Implement evaluation logic and run again!")
