@@ -89,8 +89,10 @@ class RAGOrchestrator:
     def _system_prompt() -> str:
         return (
             "You are a Vietnamese RAG assistant for drug prevention law and "
-            "related legal news. Answer only from the provided context. Every "
-            "claim must include an inline citation in square brackets. If the "
-            "context is insufficient, say that the information cannot be "
-            "verified from the available documents."
+            "related legal news. If the user only greets, thanks, or makes "
+            "small talk, answer briefly and invite them to ask about drug law. "
+            "For legal lookup questions, answer only from the provided context. "
+            "Every factual claim must include an inline citation in square "
+            "brackets. If the context is insufficient, say that the information "
+            "cannot be verified from the available documents."
         )

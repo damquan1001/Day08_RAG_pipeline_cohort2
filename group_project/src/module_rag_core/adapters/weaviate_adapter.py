@@ -7,9 +7,11 @@ from typing import List, Optional
 try:
     import weaviate
     from weaviate.classes.query import MetadataQuery
+    from weaviate.classes.init import Auth
 except ImportError:
     weaviate = None
     MetadataQuery = None
+    Auth = None
 
 from system_contracts import Document
 from src.module_rag_core.ports.outbound import VectorStorePort
@@ -27,12 +29,17 @@ class WeaviateDockerAdapter(VectorStorePort):
             self.client = None
             return
 
-        parsed = urllib.parse.urlparse(url)
-        host = parsed.hostname or "localhost"
-        port = parsed.port or 8080
-
         try:
-            self.client = weaviate.connect_to_local(host=host, port=port)
+            if self._is_cloud_url(url):
+                self.client = weaviate.connect_to_weaviate_cloud(
+                    cluster_url=url,
+                    auth_credentials=Auth.api_key(api_key) if api_key and Auth else None,
+                )
+            else:
+                parsed = urllib.parse.urlparse(url)
+                host = parsed.hostname or "localhost"
+                port = parsed.port or 8080
+                self.client = weaviate.connect_to_local(host=host, port=port)
         except Exception as exc:
             print(
                 f"Warning: could not connect to Weaviate at {url} ({exc}). "
@@ -149,7 +156,8 @@ class WeaviateDockerAdapter(VectorStorePort):
                     "Dieu 5 Luat Phong, chong ma tuy 2021 nghiem cam trong "
                     "cay co chua chat ma tuy; san xuat, tang tru, van chuyen, "
                     "mua ban trai phep chat ma tuy; su dung, to chuc su dung, "
-                    "cuong buc hoac loi keo nguoi khac su dung trai phep."
+                    "cuong buc hoac loi keo nguoi khac su dung trai phep, bao "
+                    "gom hit, tiem chich heroin hoac cac chat ma tuy khac."
                 ),
                 metadata={
                     "source": "luat-phong-chong-ma-tuy-2021.md",
@@ -190,3 +198,7 @@ class WeaviateDockerAdapter(VectorStorePort):
     @staticmethod
     def _tokens(text: str) -> set[str]:
         return set(re.findall(r"\w+", text.lower()))
+
+    @staticmethod
+    def _is_cloud_url(url: str) -> bool:
+        return "weaviate.cloud" in url or "weaviate.network" in url

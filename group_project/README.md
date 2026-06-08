@@ -89,6 +89,19 @@ Outputs:
 - `group_project/src/module_evaluation/results.md`
 - `group_project/REPORT.md`
 
+## Import Data To Weaviate
+
+After `data/standardized/legal` and `data/standardized/news` are available,
+load them into the RAG core vector store with:
+
+```bash
+python group_project/import_data.py
+```
+
+The script reads `GEMINI_API_KEY`, `WEAVIATE_URL`, and `WEAVIATE_API_KEY` from
+`.env`. If Gemini is not configured, it uses zero vectors so the import flow can
+still be tested.
+
 ## Run Integration Test
 
 ```bash
@@ -99,6 +112,6 @@ pytest group_project/tests/test_system_integration.py -v
 
 - Dataset creator has a 15+ item golden dataset and schema validator.
 - RAG core is integrated from Nguyen Tien Dat's branch with offline-safe
-  Gemini and Weaviate fallbacks.
+  Gemini and Weaviate fallbacks plus a Weaviate import script.
 - Chat UI loads the shared RAG core through `RAGCoreInterface`.
 - Evaluation has 4 metrics, 2 A/B configs, and worst-performer reporting.
