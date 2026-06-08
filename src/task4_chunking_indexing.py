@@ -179,3 +179,12 @@ def run_pipeline():
 
 if __name__ == "__main__":
     run_pipeline()
+    chunks = embed_chunks(chunks)
+    print(f"[Task 4] Embedded {len(chunks)} chunks")
+
+    index_to_vectorstore(chunks)
+    print("[Task 4] Indexed to vector store successfully")
+
+
+if __name__ == "__main__":
+    run_pipeline()

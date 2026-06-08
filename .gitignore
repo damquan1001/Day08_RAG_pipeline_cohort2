@@ -1,0 +1,19 @@
+# Environments
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest & Testing Cache
+.pytest_cache/
+.deepeval/
+.cache/
+
+# Local data caches / generated files (Optional but recommended)
+data/vector_store.json
+data/pageindex_manifest.json
+data/landing/legal/*.docx
+data/landing/news/*.json
+data/standardized/**/*.md
