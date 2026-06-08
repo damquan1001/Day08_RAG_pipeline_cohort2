@@ -3,8 +3,13 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-from dotenv import load_dotenv
 import streamlit as st
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    def load_dotenv(*args, **kwargs):
+        return False
 
 
 GROUP_PROJECT_DIR = Path(__file__).resolve().parents[2]
