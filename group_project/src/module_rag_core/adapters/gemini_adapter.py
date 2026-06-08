@@ -76,9 +76,11 @@ class GeminiGenerativeAIAdapter(LLMServicePort):
         prompt = (
             "Dựa trên lịch sử hội thoại sau đây:\n"
             f"{history_str}\n"
-            f"Hãy chuyển đổi câu hỏi nối tiếp: '{latest_query}' thành một câu hỏi độc lập (standalone query) bằng tiếng Việt. "
-            "Câu hỏi này phải bao hàm đầy đủ ngữ cảnh của lịch sử để người khác có thể hiểu được mục đích truy vấn mà không cần đọc lại lịch sử. "
-            "Chỉ trả về câu hỏi độc lập mới, không kèm giải thích."
+            f"Hãy phân tích câu hỏi tiếp theo của người dùng: '{latest_query}'\n\n"
+            "Yêu cầu:\n"
+            "1. Nếu câu hỏi mới là một câu chào hỏi (ví dụ: chào bạn, hello, hi), lời cảm ơn (ví dụ: cảm ơn, thank you), hoặc là câu hỏi độc lập đã rõ nghĩa và không cần thông tin từ lịch sử hội thoại trước đó, hãy trả về nguyên văn câu hỏi mới đó.\n"
+            "2. Nếu câu hỏi mới chứa các từ thay thế hoặc tham chiếu cần ngữ cảnh từ lịch sử hội thoại (ví dụ: 'nó', 'hành vi này', 'điều đó', 'ở trên'), hãy chuyển đổi nó thành một câu hỏi độc lập (standalone query) bằng tiếng Việt, chứa đầy đủ ngữ cảnh để có thể hiểu được mục đích truy vấn mà không cần đọc lại lịch sử.\n\n"
+            "Chỉ trả về câu hỏi cuối cùng thu được, tuyệt đối không kèm giải thích hay thêm bớt thông tin ngoài yêu cầu."
         )
 
         try:

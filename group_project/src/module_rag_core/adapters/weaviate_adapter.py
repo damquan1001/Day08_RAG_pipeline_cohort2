@@ -96,7 +96,8 @@ class WeaviateDockerAdapter(VectorStorePort):
                 content=(
                     "Điều 5. Các hành vi bị nghiêm cấm theo Luật phòng chống ma túy:\n"
                     "1. Trồng cây chứa chất ma túy.\n"
-                    "2. Sản xuất, tàng trữ, vận chuyển, mua bán trái phép chất ma túy."
+                    "2. Sản xuất, tàng trữ, vận chuyển, mua bán trái phép chất ma túy.\n"
+                    "3. Sử dụng, tổ chức sử dụng trái phép chất ma túy (bao gồm hít, tiêm chích heroin hoặc các chất ma túy khác)."
                 ),
                 metadata={
                     "source": "luat_phong_chong_ma_tuy_2021.md",
