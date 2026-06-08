@@ -1,46 +1,6 @@
+from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 from abc import ABC, abstractmethod
-
-try:
-    from pydantic import BaseModel, Field
-except ImportError:
-    class _FieldDefault:
-        def __init__(self, default=None, default_factory=None):
-            self.default = default
-            self.default_factory = default_factory
-
-    def Field(default=None, default_factory=None):
-        return _FieldDefault(default=default, default_factory=default_factory)
-
-    class BaseModel:
-        """Small fallback used when pydantic is not installed in the demo env."""
-
-        def __init__(self, **data):
-            annotations = {}
-            for cls in reversed(self.__class__.mro()):
-                annotations.update(getattr(cls, "__annotations__", {}))
-
-            for name in annotations:
-                if name in data:
-                    value = data.pop(name)
-                else:
-                    default = getattr(self.__class__, name, None)
-                    if isinstance(default, _FieldDefault):
-                        if default.default_factory is not None:
-                            value = default.default_factory()
-                        else:
-                            value = default.default
-                    elif hasattr(self.__class__, name):
-                        value = default
-                    else:
-                        raise TypeError(f"Missing required field: {name}")
-                setattr(self, name, value)
-
-            for name, value in data.items():
-                setattr(self, name, value)
-
-        def model_dump(self):
-            return dict(self.__dict__)
 
 # ==========================================
 # 1. Configuration Schema (RAG Configuration)
@@ -48,7 +8,7 @@ except ImportError:
 class RAGConfig(BaseModel):
     """Schema for configuring RAG models and parameters from .env and UI"""
     gemini_api_key: str
-    llm_model_name: str = "gemini-3.5-flash-lite"
+    llm_model_name: str = "gemini-1.5-flash"        # e.g., gemini-1.5-flash, gemini-1.5-pro
     embedding_model_name: str = "text-embedding-004"
     temperature: float = 0.2
     top_k: int = 5
