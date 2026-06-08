@@ -73,7 +73,7 @@ group_project/
 *   **Google Gemini LLM & Embedding:** Toàn bộ mô hình nhúng và sinh câu trả lời được cấu hình sử dụng Google Gemini.
 *   **File cấu hình `.env`:** Quản lý các cấu hình mặc định (xem tại [.env.example](file:///c:/Users/ntddatj/github-ntddatj/github-classroom/Day08_RAG_pipeline_cohort2/group_project/.env.example)).
 *   **Tham số trên giao diện UI:** Cho phép người dùng cấu hình động qua Streamlit Sidebar:
-    *   *LLM Model:* `gemini-1.5-flash` hoặc `gemini-1.5-pro`
+    *   *LLM Model:* `gemini-3.5-flash-lite`
     *   *Temperature:* Lựa chọn từ `0.0` đến `1.0`
     *   *Top K:* Số lượng tài liệu truy xuất (1 đến 10)
     *   *Reranker:* Hộp checkbox bật/tắt reranking.

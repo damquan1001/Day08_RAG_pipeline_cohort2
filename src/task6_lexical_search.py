@@ -7,7 +7,14 @@ from functools import lru_cache
 
 from rank_bm25 import BM25Okapi
 
-from .task4_chunking_indexing import chunk_documents, load_documents
+import sys
+from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    from src.task4_chunking_indexing import chunk_documents, load_documents
+else:
+    from .task4_chunking_indexing import chunk_documents, load_documents
 
 
 def _tokenize(text: str) -> list[str]:

@@ -8,15 +8,51 @@ chấm điểm theo từ khóa. Không cần PAGEINDEX_API_KEY khi chạy bài c
 import os
 import re
 from pathlib import Path
-
 from dotenv import load_dotenv
+import sys
+import json
+import hashlib
+import requests
+from typing import Any
 
-from .task4_chunking_indexing import chunk_documents, load_documents
+PROJECT_DIR = Path(__file__).resolve().parent.parent
+MANIFEST_PATH = PROJECT_DIR / "data" / "pageindex_manifest.json"
+PAGEINDEX_MARKDOWN_URL = "https://api.pageindex.ai/v1/markdown"
 
-load_dotenv()
+if __package__ in (None, ""):
+    sys.path.insert(0, str(PROJECT_DIR))
+    from src.task4_chunking_indexing import chunk_documents, load_documents
+else:
+    from .task4_chunking_indexing import chunk_documents, load_documents
+
+load_dotenv(PROJECT_DIR / ".env")
 
 PAGEINDEX_API_KEY = os.getenv("PAGEINDEX_API_KEY", "")
-STANDARDIZED_DIR = Path(__file__).parent.parent / "data" / "standardized"
+STANDARDIZED_DIR = PROJECT_DIR / "data" / "standardized"
+
+
+def _file_fingerprint(path: Path) -> str:
+    try:
+        return hashlib.md5(path.read_bytes()).hexdigest()
+    except Exception:
+        return str(path.stat().st_mtime)
+
+
+def _load_manifest() -> dict:
+    if MANIFEST_PATH.exists():
+        try:
+            return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return {"backend": "pageindex_markdown_api", "documents": []}
+
+
+def _save_manifest(manifest: dict):
+    try:
+        MANIFEST_PATH.parent.mkdir(parents=True, exist_ok=True)
+        MANIFEST_PATH.write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
+    except Exception as e:
+        print(f"[Warning] Failed to save PageIndex manifest: {e}")
 
 
 def _tokenize(text: str) -> list[str]:
@@ -59,10 +95,8 @@ def pageindex_search(query: str, top_k: int = 5) -> list[dict]:
     return results[:top_k]
 
 
-if __name__ == "__main__":
-    results = pageindex_search("hình phạt sử dụng ma túy", top_k=3)
-    for r in results:
-        print(f"[{r['score']:.3f}] {r['content'][:100]}...")
+def _extract_records_from_tree(nodes: list, source: str, doc_type: str, parent_title: str = "") -> list[dict]:
+    records = []
     for node in nodes or []:
         title = str(node.get("title") or "").strip()
         node_id = str(node.get("node_id") or node.get("id") or "")

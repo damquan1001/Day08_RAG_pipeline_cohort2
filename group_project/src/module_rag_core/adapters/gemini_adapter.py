@@ -39,10 +39,11 @@ class GeminiGenerativeAIAdapter(LLMServicePort):
 
 
     def embed_query(self, query: str) -> List[float]:
-        """Embed a query text into a vector representation using text-embedding-004."""
+        """Embed a query text into a vector representation using text-embedding-004 with fallback."""
         if not self.api_key:
             return [0.0] * 1024  # Default length for text-embedding-004
 
+        # Try text-embedding-004
         try:
             response = genai.embed_content(
                 model="models/text-embedding-004",
@@ -55,9 +56,22 @@ class GeminiGenerativeAIAdapter(LLMServicePort):
                 return response.embedding
             return [0.0] * 1024
         except Exception as e:
-            print(f"Gemini embed_content error: {e}")
-            # Return a dummy vector so the flow does not crash
-            return [0.0] * 1024
+            # Try falling back to embedding-001
+            try:
+                response = genai.embed_content(
+                    model="models/embedding-001",
+                    content=query,
+                    task_type="retrieval_query",
+                )
+                if isinstance(response, dict) and "embedding" in response:
+                    return response["embedding"]
+                elif hasattr(response, "embedding"):
+                    return response.embedding
+                return [0.0] * 1024
+            except Exception as e2:
+                print(f"Gemini embed_content error with both models: {e2}")
+                # Return a dummy vector so the flow does not crash
+                return [0.0] * 1024
 
     def condense_query(
         self,
@@ -78,9 +92,11 @@ class GeminiGenerativeAIAdapter(LLMServicePort):
             f"{history_str}\n"
             f"Hãy phân tích câu hỏi tiếp theo của người dùng: '{latest_query}'\n\n"
             "Yêu cầu:\n"
-            "1. Nếu câu hỏi mới là một câu chào hỏi (ví dụ: chào bạn, hello, hi), lời cảm ơn (ví dụ: cảm ơn, thank you), hoặc là câu hỏi độc lập đã rõ nghĩa và không cần thông tin từ lịch sử hội thoại trước đó, hãy trả về nguyên văn câu hỏi mới đó.\n"
-            "2. Nếu câu hỏi mới chứa các từ thay thế hoặc tham chiếu cần ngữ cảnh từ lịch sử hội thoại (ví dụ: 'nó', 'hành vi này', 'điều đó', 'ở trên'), hãy chuyển đổi nó thành một câu hỏi độc lập (standalone query) bằng tiếng Việt, chứa đầy đủ ngữ cảnh để có thể hiểu được mục đích truy vấn mà không cần đọc lại lịch sử.\n\n"
-            "Chỉ trả về câu hỏi cuối cùng thu được, tuyệt đối không kèm giải thích hay thêm bớt thông tin ngoài yêu cầu."
+            "1. Nếu câu hỏi mới là câu chào hỏi (ví dụ: chào bạn, hello, hi), lời cảm ơn (ví dụ: cảm ơn, thank you), hoặc xã giao, hãy trả về nguyên văn câu hỏi đó.\n"
+            "2. Đối với các câu hỏi tra cứu, hãy chuyển đổi nó thành một câu hỏi độc lập (standalone query) bằng tiếng Việt. "
+            "Để tối ưu hóa tìm kiếm từ khóa (Lexical Search), bạn hãy TỰ ĐỘNG MỞ RỘNG truy vấn bằng cách bổ sung thêm các thuật ngữ pháp lý đồng nghĩa hoặc liên quan mật thiết trong Luật Việt Nam "
+            "(ví dụ: 'hít heroin/đập đá' -> thêm cụm từ 'sử dụng trái phép chất ma túy'; 'trồng cần sa/thuốc phiện' -> thêm cụm từ 'trồng cây có chứa chất ma túy'; 'bị phạt thế nào' -> thêm cụm từ 'xử lý vi phạm, xử phạt, hình phạt').\n\n"
+            "Chỉ trả về câu hỏi độc lập đã được mở rộng, tuyệt đối không kèm giải thích hay thêm bất kỳ thông tin ngoài yêu cầu."
         )
 
         try:

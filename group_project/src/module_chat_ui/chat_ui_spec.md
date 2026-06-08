@@ -9,7 +9,7 @@ Module này phụ trách toàn bộ trải nghiệm người dùng cuối (Front
 ## 2. Đặc Tả Usecases Cần Thực Hiện
 1.  **Render Sidebar Settings:** 
     *   Đọc các biến môi trường mặc định từ `.env`.
-    *   Hiển thị các input/select box để tuỳ chỉnh tham số: Lựa chọn Model Gemini (`gemini-1.5-flash`, `gemini-1.5-pro`), Nhiệt độ sáng tạo (`Temperature`), Số tài liệu lấy về (`Top K`), Nút bật/tắt `Reranker`.
+    *   Hiển thị các input/select box để tuỳ chỉnh tham số: Lựa chọn Model Gemini (`gemini-3.5-flash-lite`), Nhiệt độ sáng tạo (`Temperature`), Số tài liệu lấy về (`Top K`), Nút bật/tắt `Reranker`.
     *   Bất kỳ khi nào người dùng nhấn lưu hoặc thay đổi cấu hình, UI phải gọi phương thức `.configure(config)` của RAG Engine.
 2.  **Render Chat Message Stream:**
     *   Hiển thị lịch sử hội thoại dưới dạng bong bóng chat người dùng và trợ lý.

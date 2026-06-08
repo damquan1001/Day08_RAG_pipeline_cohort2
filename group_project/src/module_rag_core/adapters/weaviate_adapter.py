@@ -14,17 +14,23 @@ class WeaviateDockerAdapter(VectorStorePort):
         self.class_name = "DrugLawDocs"
 
     def connect(self, url: str, api_key: Optional[str] = None) -> None:
-        """Establish connection to local Docker Weaviate instance."""
-        parsed = urllib.parse.urlparse(url)
-        host = parsed.hostname or "localhost"
-        port = parsed.port or 8080
-
+        """Establish connection to local or Cloud Weaviate instance."""
         try:
-            # connect_to_local connects to HTTP port and automatically determines gRPC port
-            self.client = weaviate.connect_to_local(host=host, port=port)
+            if "weaviate.cloud" in url or "weaviate.network" in url:
+                from weaviate.classes.init import Auth
+                self.client = weaviate.connect_to_weaviate_cloud(
+                    cluster_url=url,
+                    auth_credentials=Auth.api_key(api_key) if api_key else None
+                )
+            else:
+                parsed = urllib.parse.urlparse(url)
+                host = parsed.hostname or "localhost"
+                port = parsed.port or 8080
+                # connect_to_local connects to HTTP port and automatically determines gRPC port
+                self.client = weaviate.connect_to_local(host=host, port=port)
         except Exception as e:
             print(
-                f"Warning: Could not connect to Weaviate Docker at {url} ({e}). "
+                f"Warning: Could not connect to Weaviate at {url} ({e}). "
                 "Will use fallback mock data for testing."
             )
             self.client = None
