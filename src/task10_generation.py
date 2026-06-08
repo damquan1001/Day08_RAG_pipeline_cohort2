@@ -1,14 +1,24 @@
-"""Task 10 - Generation with citations from retrieved chunks."""
+"""Task 10 - OpenAI generation with citations."""
 
-import re
-from urllib.parse import urlparse
+import os
+
+from dotenv import load_dotenv
 
 from .task9_retrieval_pipeline import retrieve
+from .text_utils import (
+    markdown_field,
+    platform_from_source,
+    platform_from_url,
+    year_from_text,
+)
 
+
+load_dotenv()
 
 TOP_K = 5
 TOP_P = 0.9
 TEMPERATURE = 0.3
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 
 SYSTEM_PROMPT = """Answer in Vietnamese using only the provided context.
 Every factual claim should include a citation in this exact format:
@@ -115,33 +125,41 @@ def format_context(chunks: list[dict]) -> str:
     return "\n\n---\n\n".join(parts)
 
 
-def _extractive_answer(query: str, chunks: list[dict]) -> str:
-    if not chunks:
-        return "Toi khong the xac minh thong tin nay tu nguon hien co."
-
-    sentences = []
-    for index, chunk in enumerate(chunks[:3], start=1):
-        content = " ".join(chunk.get("content", "").split())
-        snippet = content[:260].strip()
-        if len(content) > 260:
-            snippet = snippet.rsplit(" ", 1)[0] + "..."
-        citation = _citation_label(chunk, index)
-        sentences.append(f"{snippet} [{citation}]")
-
-    return (
-        f"Duoi day la cau tra loi dua tren cac nguon truy xuat cho cau hoi "
-        f"'{query}':\n\n" + "\n\n".join(sentences)
-    )
-
-
 def generate_with_citation(query: str, top_k: int = TOP_K) -> dict:
-    """
-    Retrieve evidence, reorder it, format context, and return a cited answer.
-    """
+    """Retrieve context and call OpenAI to generate a cited answer."""
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY is required for Task 10 generation.")
+
     chunks = retrieve(query, top_k=top_k)
     reordered = reorder_for_llm(chunks)
     context = format_context(reordered)
-    answer = _extractive_answer(query, reordered)
+
+    if not reordered:
+        return {
+            "answer": "Tôi không thể xác minh thông tin này từ nguồn hiện có.",
+            "sources": [],
+            "context": context,
+            "retrieval_source": "none",
+        }
+
+    try:
+        from openai import OpenAI
+    except ImportError as exc:
+        raise RuntimeError("openai package is required for Task 10 generation.") from exc
+
+    client = OpenAI(api_key=api_key)
+    user_message = f"Context:\n{context}\n\n---\n\nQuestion: {query}"
+    response = client.chat.completions.create(
+        model=OPENAI_MODEL,
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": user_message},
+        ],
+        temperature=TEMPERATURE,
+        top_p=TOP_P,
+    )
+    answer = response.choices[0].message.content or ""
 
     return {
         "answer": answer,

@@ -498,10 +498,11 @@ run_dashboard()
 
 #### Deliverable Evaluation
 
-- [ ] File `group_project/evaluation/golden_dataset.json` — 15+ cặp Q&A
-- [ ] File `group_project/evaluation/eval_pipeline.py` — script chạy evaluation
-- [ ] File `group_project/evaluation/results.md` — bảng điểm + phân tích
-- [ ] So sánh A/B ít nhất 2 configs
+- [x] File `group_project/src/module_dataset_creator/golden_dataset.json` — 15+ cặp Q&A
+- [x] File `group_project/src/module_evaluation/eval_pipeline.py` — script chạy evaluation
+- [x] File `group_project/src/module_evaluation/results.md` — bảng điểm + phân tích
+- [x] File `group_project/REPORT.md` — báo cáo tích hợp nhóm
+- [x] So sánh A/B ít nhất 2 configs
 
 ---
 
@@ -618,13 +619,7 @@ Chấm bằng automated test suite (`pytest tests/ -v`). Mỗi task có test ri�
 
 ### Bonus — 20 điểm (20%)
 
-| Tiêu chí | Điểm |
-|----------|------|
-| Giải thích cơ chế lexical search khác BM25 (trong demo) | 5 |
-| Implement HyDE (Hypothetical Document Embeddings) cho query | 5 |
-| Deploy chatbot online (Hugging Face Spaces / Render / ...) | 4 |
-| Conversation memory (multi-turn chat) | 3 |
-| UI/UX chất lượng (hiển thị source, score, highlight) | 3 |
+Demo hoặc đặt câu hỏi mà nhóm đang demo khiến LLM không trả lời được (mỗi câu 5 điểm)
 
 ---
 

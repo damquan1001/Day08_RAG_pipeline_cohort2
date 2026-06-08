@@ -19,11 +19,12 @@ CHUNK_SIZE = 500
 CHUNK_OVERLAP = 50
 CHUNKING_METHOD = "recursive"
 
-# Local search modules use lexical vectors derived from the same chunks. These
-# names document the intended production choices without requiring downloads.
-EMBEDDING_MODEL = "local-tfidf-overlap"
-EMBEDDING_DIM = 0
-VECTOR_STORE = "local-jsonl"
+# Production recommendation: BAAI/bge-m3 (1024 dim) + Weaviate. This implementation
+# also exposes a local token embedding so tests and BM25/hybrid retrieval can run
+# without model downloads.
+EMBEDDING_MODEL = "BAAI/bge-m3"
+EMBEDDING_DIM = 1024
+VECTOR_STORE = "weaviate"
 
 
 def _document_type(path: Path) -> str:
@@ -97,7 +98,6 @@ def _split_text(text: str) -> list[str]:
         chunk = text[start:end].strip()
         if chunk:
             chunks.append(chunk)
-
         if end >= len(text):
             break
         start = max(0, end - CHUNK_OVERLAP)
@@ -144,9 +144,7 @@ def embed_chunks(chunks: list[dict]) -> list[dict]:
 
 
 def index_to_vectorstore(chunks: list[dict]):
-    """
-    Return chunks as the local in-memory vector store.
-    """
+    """Return an in-memory index object for local retrieval."""
     return chunks
 
 

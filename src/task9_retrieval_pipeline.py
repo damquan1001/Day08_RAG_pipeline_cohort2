@@ -17,7 +17,7 @@ def retrieve(
     score_threshold: float = SCORE_THRESHOLD,
     use_reranking: bool = True,
 ) -> list[dict]:
-    """Run semantic + lexical search, fuse/rerank, then fallback if needed."""
+    """Run semantic + lexical retrieval, fuse, rerank, and fallback if needed."""
     if top_k <= 0:
         return []
 
@@ -37,7 +37,11 @@ def retrieve(
 
     best_score = final_results[0]["score"] if final_results else 0.0
     if not final_results or best_score < score_threshold:
-        return pageindex_search(query, top_k=top_k)
+        try:
+            return pageindex_search(query, top_k=top_k)
+        except Exception as exc:
+            print(f"PageIndex fallback unavailable: {exc}")
+            return []
 
     return final_results[:top_k]
 

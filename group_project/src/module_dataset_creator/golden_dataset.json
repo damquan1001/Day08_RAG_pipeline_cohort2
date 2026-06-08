@@ -1,0 +1,157 @@
+[
+  {
+    "question": "Hình phạt cho tội tàng trữ trái phép chất ma tuý theo Điều 249 Bộ luật Hình sự?",
+    "expected_answer": "Người tàng trữ trái phép chất ma túy mà không nhằm mục đích mua bán, vận chuyển, sản xuất trái phép thuộc các trường hợp Khoản 1 thì bị phạt tù từ 01 năm đến 05 năm; mức phạt tăng theo khối lượng chất và tình tiết tại các khoản tiếp theo.",
+    "expected_context": [
+      "Điều 249. Tội tàng trữ trái phép chất ma túy\n1. Người nào tàng trữ trái phép chất ma túy mà không nhằm mục đích mua bán, vận chuyển, sản xuất trái phép chất ma túy thuộc một trong các trường hợp sau đây, thì bị phạt tù từ 01 năm đến 05 năm"
+    ],
+    "category": "legal_blhs",
+    "source_files": ["bo-luat-hinh-su-ma-tuy.md"]
+  },
+  {
+    "question": "Luật Phòng chống ma tuý 2021 quy định những biện pháp cai nghiện nào?",
+    "expected_answer": "Biện pháp cai nghiện ma túy gồm cai nghiện tự nguyện và cai nghiện bắt buộc. Cai nghiện tự nguyện thực hiện tại gia đình, cộng đồng hoặc cơ sở cai nghiện; cai nghiện bắt buộc thực hiện tại cơ sở cai nghiện ma túy công lập.",
+    "expected_context": [
+      "Điều 28. Các biện pháp cai nghiện ma túy\n1. Biện pháp cai nghiện ma túy bao gồm:\na) Cai nghiện ma túy tự nguyện;\nb) Cai nghiện ma túy bắt buộc.\n2. Biện pháp cai nghiện ma túy tự nguyện được thực hiện tại gia đình, cộng đồng hoặc tại cơ sở cai nghiện ma túy; biện pháp cai nghiện ma túy bắt buộc được thực hiện tại cơ sở cai nghiện ma túy công lập."
+    ],
+    "category": "legal_luat",
+    "source_files": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "question": "Chất ma túy được định nghĩa thế nào trong Luật Phòng, chống ma túy 2021?",
+    "expected_answer": "Chất ma túy là chất gây nghiện, chất hướng thần được quy định trong danh mục chất ma túy do Chính phủ ban hành.",
+    "expected_context": [
+      "1. Chất ma túy là chất gây nghiện, chất hướng thần được quy định trong danh mục chất ma túy do Chính phủ ban hành."
+    ],
+    "category": "legal_luat",
+    "source_files": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "question": "Thế nào là 'Người sử dụng trái phép chất ma túy' theo Luật Phòng chống ma túy 2021?",
+    "expected_answer": "Là người có hành vi sử dụng chất ma túy mà không được sự cho phép của người hoặc cơ quan chuyên môn có thẩm quyền và xét nghiệm chất ma túy trong cơ thể có kết quả dương tính.",
+    "expected_context": [
+      "10. Người sử dụng trái phép chất ma túy là người có hành vi sử dụng chất ma túy mà không được sự cho phép của người hoặc cơ quan chuyên môn có thẩm quyền và xét nghiệm chất ma túy trong cơ thể có kết quả dương tính."
+    ],
+    "category": "legal_luat",
+    "source_files": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "question": "Theo Luật Phòng, chống ma túy 2021, quy trình cai nghiện ma túy gồm những giai đoạn nào?",
+    "expected_answer": "Gồm 5 giai đoạn: tiếp nhận, phân loại; điều trị cắt cơn, giải độc; giáo dục, tư vấn, phục hồi hành vi; lao động trị liệu, học nghề; chuẩn bị tái hòa nhập cộng đồng.",
+    "expected_context": [
+      "Điều 29. Quy trình cai nghiện ma túy\n1. Quy trình cai nghiện ma túy bao gồm các giai đoạn sau đây:\na) Tiếp nhận, phân loại;\nb) Điều trị cắt cơn, giải độc, điều trị các rối loạn tâm thần, điều trị các bệnh lý khác;\nc) Giáo dục, tư vấn, phục hồi hành vi, nhân cách;\nd) Lao động trị liệu, học nghề;\nđ) Chuẩn bị tái hòa nhập cộng đồng."
+    ],
+    "category": "legal_luat",
+    "source_files": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "question": "Các hành vi nào bị nghiêm cấm theo quy định tại Điều 5 Luật Phòng chống ma túy 2021?",
+    "expected_answer": "Nghiêm cấm trồng cây chứa chất ma túy; sản xuất, tàng trữ, vận chuyển, mua bán trái phép chất ma túy; sử dụng và tổ chức sử dụng trái phép; cưỡng bức, lôi kéo người khác sử dụng; cản trở xét nghiệm, quản lý, cai nghiện; kỳ thị người sử dụng hoặc cai nghiện ma túy.",
+    "expected_context": [
+      "Điều 5. Các hành vi bị nghiêm cấm\n1. Trồng cây có chứa chất ma túy, hướng dẫn trồng cây có chứa chất ma túy.\n5. Sử dụng, tổ chức sử dụng trái phép chất ma túy; cưỡng bức, lôi kéo người khác sử dụng trái phép chất ma túy.\n7. Chống lại hoặc cản trở việc xét nghiệm chất ma túy trong cơ thể, quản lý người sử dụng trái phép chất ma túy, cai nghiện ma túy.\n11. Kỳ thị người sử dụng trái phép chất ma túy, người cai nghiện ma túy, người sau cai nghiện ma túy."
+    ],
+    "category": "legal_luat",
+    "source_files": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "question": "Cơ quan chuyên trách phòng, chống tội phạm về ma túy gồm những lực lượng nào?",
+    "expected_answer": "Gồm cơ quan chuyên trách thuộc Công an nhân dân; Bộ đội Biên phòng; Cảnh sát biển Việt Nam; và Hải quan.",
+    "expected_context": [
+      "Điều 11. Cơ quan chuyên trách phòng, chống tội phạm về ma túy\n1. Cơ quan chuyên trách phòng, chống tội phạm về ma túy bao gồm:\na) Cơ quan chuyên trách phòng, chống tội phạm về ma túy thuộc Công an nhân dân;\nb) Cơ quan chuyên trách phòng, chống tội phạm về ma túy thuộc Bộ đội Biên phòng, Cảnh sát biển Việt Nam và Hải quan."
+    ],
+    "category": "legal_luat",
+    "source_files": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "question": "Thời hạn quản lý người sử dụng trái phép chất ma túy theo quyết định của Chủ tịch UBND cấp xã là bao lâu?",
+    "expected_answer": "Thời hạn quản lý là 01 năm kể từ ngày Chủ tịch Ủy ban nhân dân cấp xã ra quyết định quản lý.",
+    "expected_context": [
+      "Điều 23. Quản lý người sử dụng trái phép chất ma túy\n2. Thời hạn quản lý người sử dụng trái phép chất ma túy là 01 năm kể từ ngày Chủ tịch Ủy ban nhân dân cấp xã ra quyết định quản lý."
+    ],
+    "category": "legal_luat",
+    "source_files": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "question": "Người nghiện ma túy từ đủ 18 tuổi trở lên bị đưa vào cơ sở cai nghiện bắt buộc trong những trường hợp nào?",
+    "expected_answer": "Khi không thực hiện hoặc tự ý chấm dứt cai nghiện tự nguyện; phát hiện sử dụng ma túy trong thời gian cai nghiện tự nguyện; không thực hiện điều trị thay thế với chất dạng thuốc phiện; hoặc tái nghiện trong thời gian quản lý sau cai nghiện.",
+    "expected_context": [
+      "Điều 32. Đối tượng bị áp dụng biện pháp xử lý hành chính đưa vào cơ sở cai nghiện bắt buộc\nNgười nghiện ma túy từ đủ 18 tuổi trở lên bị áp dụng biện pháp xử lý hành chính đưa vào cơ sở cai nghiện bắt buộc khi thuộc một trong các trường hợp sau đây:\n1. Không đăng ký, không thực hiện hoặc tự ý chấm dứt cai nghiện ma túy tự nguyện;\n2. Trong thời gian cai nghiện ma túy tự nguyện bị phát hiện sử dụng trái phép chất ma túy;\n4. Trong thời gian quản lý sau cai nghiện ma túy mà tái nghiện."
+    ],
+    "category": "legal_luat",
+    "source_files": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "question": "Hình phạt tối đa cho tội sản xuất trái phép chất ma túy theo Bộ luật Hình sự là gì?",
+    "expected_answer": "Tùy trường hợp, người phạm tội sản xuất trái phép chất ma túy có thể bị phạt tù 20 năm, tù chung thân hoặc tử hình khi thuộc các trường hợp nặng tại Khoản 4 Điều 248 (ví dụ khối lượng chất ma túy rất lớn).",
+    "expected_context": [
+      "Điều 248. Tội sản xuất trái phép chất ma túy\n4. Phạm tội thuộc một trong các trường hợp sau đây, thì bị phạt tù 20 năm, tù chung thân hoặc tử hình:\na) Nhựa thuốc phiện, nhựa cần sa hoặc cao côca có khối lượng từ 05 kilôgam trở lên;\nb) Hêrôin, côcain hoặc Methamphetamine, Amphetamine, MDMA có khối lượng từ 100 gam trở lên"
+    ],
+    "category": "legal_blhs",
+    "source_files": ["bo-luat-hinh-su-ma-tuy.md"]
+  },
+  {
+    "question": "Thời hạn cai nghiện ma túy tự nguyện tại gia đình, cộng đồng là bao lâu?",
+    "expected_answer": "Thời hạn cai nghiện ma túy tự nguyện tại gia đình, cộng đồng là từ đủ 06 tháng đến 12 tháng.",
+    "expected_context": [
+      "Điều 30. Cai nghiện ma túy tự nguyện tại gia đình, cộng đồng\n2. Thời hạn cai nghiện ma túy tự nguyện tại gia đình, cộng đồng là từ đủ 06 tháng đến 12 tháng."
+    ],
+    "category": "legal_luat",
+    "source_files": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "question": "Những nguồn tài chính nào bảo đảm cho hoạt động phòng, chống ma túy?",
+    "expected_answer": "Gồm ngân sách nhà nước; tài trợ, viện trợ, đầu tư, tặng cho trong và ngoài nước; chi trả của gia đình, người nghiện ma túy; và các nguồn tài chính hợp pháp khác.",
+    "expected_context": [
+      "Điều 4. Nguồn tài chính cho phòng, chống ma túy\n1. Ngân sách nhà nước.\n2. Nguồn tài trợ, viện trợ, đầu tư, tặng cho của tổ chức, cá nhân trong nước và ngoài nước.\n3. Chi trả của gia đình, người nghiện ma túy.\n4. Các nguồn tài chính hợp pháp khác."
+    ],
+    "category": "legal_luat",
+    "source_files": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "question": "Ca sĩ Chu Bin bị xử lý thế nào trong vụ liên quan ma túy?",
+    "expected_answer": "Nhóm của Chu Bin bị phát hiện có dấu hiệu sử dụng ma túy tại căn hộ chung cư quận 10 và bị tạm giữ. Chu Bin sau đó được thả sau khi bị xử phạt hành chính; bốn người khác vẫn bị tạm giữ.",
+    "expected_context": [
+      "Ngày 6/6, nguồn tin từ cơ quan điều tra cho biết, trước đó nhóm của Chu Bin bị cảnh sát phát hiện có dấu hiệu sử dụng ma túy tại căn hộ chung cư ở quận 10. Tất cả sau đó bị tạm giữ. Đến tối nay, Chu Bin được thả sau khi bị xử phạt hành chính, 4 người khác vẫn bị tạm giữ."
+    ],
+    "category": "news",
+    "source_files": ["article_01.md"]
+  },
+  {
+    "question": "Ca sĩ Chi Dân và Andrea Aybar bị khởi tố vì tội gì liên quan ma túy?",
+    "expected_answer": "Chi Dân và Andrea Aybar bị khởi tố về tội tổ chức sử dụng trái phép chất ma túy.",
+    "expected_context": [
+      "Cơ quan Cảnh sát điều tra Công an TP.HCM đã ra quyết định khởi tố bị can, bắt tạm giam đối với ca sĩ Chi Dân và Andrea Aybar về tội tổ chức sử dụng trái phép chất ma túy."
+    ],
+    "category": "news",
+    "source_files": ["article_02.md"]
+  },
+  {
+    "question": "Hoài DJ bị tuyên án thế nào trong vụ đường dây ma túy 'tiệc thuốc lắc'?",
+    "expected_answer": "Hoài DJ bị tuyên án tử hình vì liên quan đường dây ma túy quy mô lớn, với khối lượng ma túy lên tới hàng trăm kilogram trong các vụ án được báo chí đề cập.",
+    "expected_context": [
+      "TAND TP.HCM tuyên án tử hình với Hoài DJ (tên thật Nguyễn Hoài Anh) trong vụ án mua bán, vận chuyển trái phép chất ma túy thuộc đường dây ma túy quy mô lớn, liên quan hơn 108 kg ma túy các loại."
+    ],
+    "category": "news",
+    "source_files": ["article_05.md"]
+  },
+  {
+    "question": "Theo luật, hành vi tổ chức sử dụng trái phép chất ma túy như vụ ca sĩ Chi Dân có thể bị xử lý hình sự thế nào?",
+    "expected_answer": "Hành vi tổ chức sử dụng trái phép chất ma túy là hành vi bị nghiêm cấm theo Luật Phòng chống ma túy; người tổ chức có thể bị truy cứu trách nhiệm hình sự theo các điều khoản về ma túy của Bộ luật Hình sự tùy vai trò và mức độ.",
+    "expected_context": [
+      "Điều 5. Các hành vi bị nghiêm cấm\n5. Sử dụng, tổ chức sử dụng trái phép chất ma túy; cưỡng bức, lôi kéo người khác sử dụng trái phép chất ma túy.",
+      "Cơ quan Cảnh sát điều tra Công an TP.HCM đã ra quyết định khởi tố bị can, bắt tạm giam đối với ca sĩ Chi Dân và Andrea Aybar về tội tổ chức sử dụng trái phép chất ma túy."
+    ],
+    "category": "reasoning",
+    "source_files": ["luat-phong-chong-ma-tuy-2021.md", "article_02.md"]
+  },
+  {
+    "question": "Người chỉ sử dụng ma túy lần đầu như trường hợp Chu Bin có thể bị xử phạt hành chính thay vì hình sự không?",
+    "expected_answer": "Có thể. Luật quy định quản lý người sử dụng trái phép chất ma túy và các biện pháp xử lý hành chính; trong tin tức, Chu Bin được thả sau khi bị xử phạt hành chính thay vì bị giữ lại như các trường hợp nặng hơn.",
+    "expected_context": [
+      "10. Người sử dụng trái phép chất ma túy là người có hành vi sử dụng chất ma túy mà không được sự cho phép của người hoặc cơ quan chuyên môn có thẩm quyền và xét nghiệm chất ma túy trong cơ thể có kết quả dương tính.",
+      "Đến tối nay, Chu Bin được thả sau khi bị xử phạt hành chính, 4 người khác vẫn bị tạm giữ."
+    ],
+    "category": "reasoning",
+    "source_files": ["luat-phong-chong-ma-tuy-2021.md", "article_01.md"]
+  }
+]

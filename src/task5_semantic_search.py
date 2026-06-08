@@ -1,4 +1,4 @@
-"""Task 5 - Local semantic search over Task 4 chunks."""
+"""Task 5 - Semantic search over Task 4 chunks."""
 
 from collections import Counter
 

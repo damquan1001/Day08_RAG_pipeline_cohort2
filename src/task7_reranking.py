@@ -40,10 +40,7 @@ def rerank_mmr(
     top_k: int = 5,
     lambda_param: float = 0.7,
 ) -> list[dict]:
-    """Select relevant but diverse candidates using their existing scores."""
-    if top_k <= 0:
-        return []
-
+    """Select relevant and diverse results using MMR over text similarity."""
     selected = []
     remaining = candidates[:]
 
@@ -59,23 +56,20 @@ def rerank_mmr(
                 diversity_penalty = max(
                     diversity_penalty, cosine_from_counters(item_terms, chosen_terms)
                 )
-            mmr_score = lambda_param * relevance - (1 - lambda_param) * diversity_penalty
-            if mmr_score > best_score:
+            score = lambda_param * relevance - (1 - lambda_param) * diversity_penalty
+            if score > best_score:
                 best_item = item
-                best_score = mmr_score
+                best_score = score
         remaining.remove(best_item)
         selected.append({**best_item, "score": float(best_score)})
 
     return selected
 
 
-def rerank_rrf(
-    ranked_lists: list[list[dict]], top_k: int = 5, k: int = 60
-) -> list[dict]:
-    """Merge ranked lists with Reciprocal Rank Fusion."""
+def rerank_rrf(ranked_lists: list[list[dict]], top_k: int = 5, k: int = 60) -> list[dict]:
+    """Fuse multiple ranked lists with Reciprocal Rank Fusion."""
     scores = {}
     items = {}
-
     for ranked_list in ranked_lists:
         for rank, item in enumerate(ranked_list, start=1):
             key = content_key(item)
@@ -87,7 +81,6 @@ def rerank_rrf(
         item = items[key].copy()
         item["score"] = float(score)
         merged.append(item)
-
     return merged[:top_k]
 
 

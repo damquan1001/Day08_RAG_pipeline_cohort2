@@ -1,4 +1,4 @@
-"""Task 6 - BM25-style lexical search over standardized Markdown chunks."""
+"""Task 6 - BM25 lexical search."""
 
 import math
 from collections import Counter
@@ -59,7 +59,7 @@ def _bm25_score(query_tokens: list[str], doc_tokens: list[str], index: dict) -> 
 
 
 def lexical_search(query: str, top_k: int = 10) -> list[dict]:
-    """Return BM25-style keyword matches sorted by descending score."""
+    """Search chunks with BM25 and return sorted results."""
     if top_k <= 0:
         return []
 
@@ -67,21 +67,28 @@ def lexical_search(query: str, top_k: int = 10) -> list[dict]:
     index = build_bm25_index(corpus)
     query_tokens = tokenize(query)
 
-    scored = []
-    for idx, doc in enumerate(corpus):
-        score = _bm25_score(query_tokens, index["tokenized"][idx], index)
+    if index["backend"] == "rank_bm25":
+        scores = index["bm25"].get_scores(query_tokens)
+    else:
+        scores = [
+            _local_score(query_tokens, doc_tokens, index)
+            for doc_tokens in index["tokenized"]
+        ]
+
+    results = []
+    for idx, score in enumerate(scores):
         if score <= 0:
             continue
-        scored.append(
+        results.append(
             {
-                "content": doc["content"],
+                "content": corpus[idx]["content"],
                 "score": float(score),
-                "metadata": doc.get("metadata", {}),
+                "metadata": corpus[idx].get("metadata", {}),
             }
         )
 
-    scored.sort(key=lambda item: item["score"], reverse=True)
-    return scored[:top_k]
+    results.sort(key=lambda item: item["score"], reverse=True)
+    return results[:top_k]
 
 
 if __name__ == "__main__":

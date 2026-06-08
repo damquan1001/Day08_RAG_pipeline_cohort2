@@ -1,4 +1,4 @@
-"""Task 8 - PageIndex-compatible vectorless fallback."""
+"""Task 8 - PageIndex vectorless RAG integration."""
 
 import os
 from pathlib import Path
@@ -14,38 +14,57 @@ PAGEINDEX_API_KEY = os.getenv("PAGEINDEX_API_KEY", "")
 STANDARDIZED_DIR = Path(__file__).parent.parent / "data" / "standardized"
 
 
-def upload_documents():
-    """
-    Return local upload metadata.
+def _require_pageindex():
+    if not PAGEINDEX_API_KEY:
+        raise RuntimeError("PAGEINDEX_API_KEY is required for Task 8.")
+    try:
+        from pageindex import PageIndex
+    except ImportError as exc:
+        raise RuntimeError("pageindex package is required for Task 8.") from exc
+    return PageIndex(api_key=PAGEINDEX_API_KEY)
 
-    A real PageIndex deployment would upload files with PAGEINDEX_API_KEY. The
-    offline version exposes the same step without requiring an external account.
-    """
-    return [
-        {"filename": path.name, "path": str(path.relative_to(STANDARDIZED_DIR))}
-        for path in sorted(STANDARDIZED_DIR.rglob("*.md"))
-    ]
+
+def upload_documents():
+    """Upload all standardized Markdown documents to PageIndex."""
+    client = _require_pageindex()
+    uploaded = []
+
+    for md_file in sorted(STANDARDIZED_DIR.rglob("*.md")):
+        content = md_file.read_text(encoding="utf-8")
+        metadata = {
+            "filename": md_file.name,
+            "path": str(md_file.relative_to(STANDARDIZED_DIR)).replace("\\", "/"),
+            "type": md_file.parent.name,
+        }
+        result = client.upload(content=content, metadata=metadata)
+        uploaded.append(result)
+        print(f"Uploaded: {md_file.name}")
+
+    return uploaded
 
 
 def pageindex_search(query: str, top_k: int = 5) -> list[dict]:
-    """
-    Vectorless fallback search marked with source='pageindex'.
-    """
-    results = lexical_search(query, top_k=top_k)
-    pageindex_results = []
+    """Query PageIndex and mark results as source='pageindex'."""
+    client = _require_pageindex()
+    raw_results = client.query(query=query, top_k=top_k)
 
-    for item in results:
-        pageindex_results.append(
+    results = []
+    for result in raw_results:
+        content = getattr(result, "text", None) or getattr(result, "content", None) or ""
+        score = getattr(result, "score", 0.0)
+        metadata = getattr(result, "metadata", {}) or {}
+        results.append(
             {
-                "content": item["content"],
-                "score": float(item.get("score", 0.0)),
-                "metadata": item.get("metadata", {}),
+                "content": content,
+                "score": float(score),
+                "metadata": metadata,
                 "source": "pageindex",
             }
         )
 
-    return pageindex_results[:top_k]
+    return results[:top_k]
 
 
 if __name__ == "__main__":
-    print(pageindex_search("ma tuy", top_k=3))
+    for item in pageindex_search("ma tuy", top_k=3):
+        print(f"[{item['score']:.3f}] {item['content'][:100]}...")
