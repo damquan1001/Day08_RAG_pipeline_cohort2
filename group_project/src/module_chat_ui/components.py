@@ -6,7 +6,7 @@ import streamlit as st
 from system_contracts import Document, RAGAnswer, RAGConfig
 
 
-MODEL_OPTIONS = ["gemini-1.5-flash", "gemini-1.5-pro"]
+MODEL_OPTIONS = ["gemini-3.5-flash-lite"]
 
 
 def _float_env(name: str, fallback: float) -> float:

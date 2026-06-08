@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 class RAGConfig(BaseModel):
     """Schema for configuring RAG models and parameters from .env and UI"""
     gemini_api_key: str
-    llm_model_name: str = "gemini-1.5-flash"        # e.g., gemini-1.5-flash, gemini-1.5-pro
+    llm_model_name: str = "gemini-3.5-flash-lite"
     embedding_model_name: str = "text-embedding-004"
     temperature: float = 0.2
     top_k: int = 5
