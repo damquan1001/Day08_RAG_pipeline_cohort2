@@ -67,13 +67,10 @@ def lexical_search(query: str, top_k: int = 10) -> list[dict]:
     index = build_bm25_index(corpus)
     query_tokens = tokenize(query)
 
-    if index["backend"] == "rank_bm25":
-        scores = index["bm25"].get_scores(query_tokens)
-    else:
-        scores = [
-            _local_score(query_tokens, doc_tokens, index)
-            for doc_tokens in index["tokenized"]
-        ]
+    scores = [
+        _bm25_score(query_tokens, doc_tokens, index)
+        for doc_tokens in index["tokenized"]
+    ]
 
     results = []
     for idx, score in enumerate(scores):

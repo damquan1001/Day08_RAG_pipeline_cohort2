@@ -20,6 +20,8 @@ PLATFORM_NAMES = {
     "vnexpress.net": "VnExpress",
     "thanhnien.vn": "Thanh Nien",
     "dantri.com.vn": "Dan Tri",
+    "vietnamnet.vn": "VietnamNet",
+    "nld.com.vn": "Nguoi Lao Dong",
     "plo.vn": "PLO",
     "congan.com.vn": "Cong An",
 }
@@ -28,7 +30,7 @@ PLATFORM_NAMES = {
 def normalize_text(text: str) -> str:
     text = unicodedata.normalize("NFD", text.lower())
     text = "".join(ch for ch in text if unicodedata.category(ch) != "Mn")
-    return text.replace("đ", "d")
+    return text.replace("đ", "d").replace("Ä‘", "d").replace("ı", "y")
 
 
 def tokenize(text: str) -> list[str]:

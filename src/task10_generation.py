@@ -1,7 +1,6 @@
 """Task 10 - OpenAI generation with citations."""
 
 import os
-
 from dotenv import load_dotenv
 
 from .task9_retrieval_pipeline import retrieve
@@ -25,20 +24,6 @@ Every factual claim should include a citation in this exact format:
 [Author/Platform Name, Year]."""
 
 
-PLATFORM_NAMES = {
-    "znews.vn": "ZNews",
-    "lifestyle.znews.vn": "ZNews",
-    "tienphong.vn": "Tien Phong",
-    "tpo": "Tien Phong",
-    "vnexpress.net": "VnExpress",
-    "tuoitre.vn": "Tuoi Tre",
-    "thanhnien.vn": "Thanh Nien",
-    "dantri.com.vn": "Dan Tri",
-    "plo.vn": "PLO",
-    "congan.com.vn": "Cong An",
-}
-
-
 def reorder_for_llm(chunks: list[dict]) -> list[dict]:
     """
     Reorder chunks to reduce lost-in-the-middle effects.
@@ -60,50 +45,16 @@ def reorder_for_llm(chunks: list[dict]) -> list[dict]:
     return reordered + middle + list(reversed(tail))
 
 
-def _extract_field(content: str, field_name: str) -> str:
-    pattern = rf"^\*\*{re.escape(field_name)}:\*\*\s*(.+)$"
-    match = re.search(pattern, content, flags=re.IGNORECASE | re.MULTILINE)
-    return match.group(1).strip() if match else ""
-
-
-def _platform_from_url(url: str) -> str:
-    if not url:
-        return ""
-    host = urlparse(url).netloc.lower().removeprefix("www.")
-    if host in PLATFORM_NAMES:
-        return PLATFORM_NAMES[host]
-    domain = ".".join(host.split(".")[-2:])
-    if domain in PLATFORM_NAMES:
-        return PLATFORM_NAMES[domain]
-    if host:
-        return host.split(".")[0].replace("-", " ").title()
-    return ""
-
-
-def _platform_from_source(source: str) -> str:
-    name = re.sub(r"\.[a-z0-9]+$", "", source, flags=re.IGNORECASE)
-    name = name.replace("-", " ").replace("_", " ").strip()
-    return name.title() if name else "Unknown Source"
-
-
-def _year_from_text(*values: str) -> str:
-    for value in values:
-        match = re.search(r"\b(19|20)\d{2}\b", value or "")
-        if match:
-            return match.group(0)
-    return "n.d."
-
-
 def _citation_label(chunk: dict, index: int) -> str:
     """Return citation text in [Author/Platform Name, Year] format."""
     metadata = chunk.get("metadata", {})
     content = chunk.get("content", "")
-    source_url = metadata.get("source_url") or _extract_field(content, "Source")
-    crawled = metadata.get("crawled_at") or _extract_field(content, "Crawled")
+    source_url = metadata.get("source_url") or markdown_field(content, "Source")
+    crawled = metadata.get("crawled_at") or markdown_field(content, "Crawled")
     source = metadata.get("source") or metadata.get("path") or f"Source {index}"
 
-    platform = _platform_from_url(source_url) or _platform_from_source(str(source))
-    year = _year_from_text(crawled, source_url, str(source), content)
+    platform = platform_from_url(source_url) or platform_from_source(str(source))
+    year = year_from_text(crawled, source_url, str(source), content)
     return f"{platform}, {year}"
 
 
