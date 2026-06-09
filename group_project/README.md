@@ -1,204 +1,117 @@
-# Bài Tập Nhóm — Search Engine / RAG Chatbot
+# Group Project - Search Engine / RAG Chatbot
 
-## Mục Tiêu
+## Goal
 
-Sau khi hoàn thành bài cá nhân, nhóm ngồi lại để xây dựng **1 trong 2 sản phẩm**:
+Build a RAG chatbot for questions about Vietnamese drug prevention law and
+related news. The group project is split into four modules, all connected by
+the shared contract in `group_project/system_contracts.py`.
 
----
+## Members
 
-## Yêu cầu 1:  Sản phẩm nhóm RAG Chatbot
+| Member | Student ID | Module | Path |
+|--------|------------|--------|------|
+| Le Dam Quan | 2A202600930 | Chat UI / UX | `src/module_chat_ui/` |
+| Nguyen Tien Dat | 2A202600595 | RAG Core | `src/module_rag_core/` |
+| Tran Nguyen Dang Khoa | 2A202600922 | Dataset Creator | `src/module_dataset_creator/` |
+| Tran Hoang Nam | 2A202600870 | Evaluation | `src/module_evaluation/` |
 
-Xây dựng chatbot trả lời câu hỏi về pháp luật ma tuý và tin tức liên quan.
+## Architecture
 
-**Yêu cầu:**
-- Giao diện chat (Streamlit / Gradio / Chainlit)
-- Trả lời có citation (dựa trên Task 10)
-- Hỗ trợ follow-up questions (conversation memory)
-- Hiển thị source documents đã dùng
+```text
+Streamlit UI
+  -> RAGCoreInterface
+  -> RAG Core
+       -> retrieval / reranking / generation
+  -> RAGAnswer(answer, sources, standalone_query)
 
-**Stack gợi ý:**
-```
-Chainlit/Streamlit → Retrieval (Task 9) → Generation (Task 10) → Display
-```
-
----
-
-## Yêu cầu 2: RAG Evaluation Pipeline
-
-Sử dụng **1 trong 3 framework** sau để evaluate pipeline RAG của nhóm:
-
-### Framework lựa chọn
-
-| Framework | Cài đặt | Đặc điểm |
-|-----------|---------|-----------|
-| [DeepEval](https://github.com/confident-ai/deepeval) | `pip install deepeval` | Nhiều metric built-in, dễ integrate với pytest |
-| [RAGAS](https://github.com/explodinggradients/ragas) | `pip install ragas` | Chuẩn industry cho RAG eval, 3 trục chính |
-| [TruLens](https://github.com/truera/trulens) | `pip install trulens` | Dashboard UI, feedback functions mạnh |
-
-### Yêu cầu Evaluation
-
-1. **Tạo Golden Dataset** — tối thiểu 15 cặp Q&A (question, expected_answer, expected_context)
-2. **Chạy evaluation** trên toàn bộ golden dataset với các metrics sau:
-   - **Faithfulness** — câu trả lời có bám đúng context không?
-   - **Answer Relevance** — câu trả lời có đúng câu hỏi không?
-   - **Context Recall** — retriever có lấy đủ evidence không?
-   - **Context Precision** — trong context lấy về, bao nhiêu % thực sự hữu ích?
-3. **So sánh A/B** — chạy eval trên ít nhất 2 config khác nhau (ví dụ: có reranking vs không reranking, hoặc hybrid vs dense-only)
-4. **Báo cáo** — bảng điểm + phân tích worst performers + đề xuất cải tiến
-
-### Code mẫu — DeepEval
-
-```python
-from deepeval import evaluate
-from deepeval.metrics import (
-    FaithfulnessMetric,
-    AnswerRelevancyMetric,
-    ContextualRecallMetric,
-    ContextualPrecisionMetric,
-)
-from deepeval.test_case import LLMTestCase
-
-# Tạo test cases từ golden dataset
-test_cases = []
-for item in golden_dataset:
-    result = rag_pipeline.generate_with_citation(item["question"])
-    test_case = LLMTestCase(
-        input=item["question"],
-        actual_output=result["answer"],
-        expected_output=item["expected_answer"],
-        retrieval_context=[c["content"] for c in result["sources"]],
-    )
-    test_cases.append(test_case)
-
-# Chạy evaluation
-metrics = [
-    FaithfulnessMetric(threshold=0.7),
-    AnswerRelevancyMetric(threshold=0.7),
-    ContextualRecallMetric(threshold=0.7),
-    ContextualPrecisionMetric(threshold=0.7),
-]
-
-results = evaluate(test_cases, metrics)
+Golden Dataset
+  -> Evaluation Pipeline
+       -> config A: hybrid + reranker
+       -> config B: question-only + no reranker
+  -> results.md + REPORT.md
 ```
 
-### Code mẫu — RAGAS
+## Module Layout
 
-```python
-from ragas import evaluate
-from ragas.metrics import (
-    faithfulness,
-    answer_relevancy,
-    context_recall,
-    context_precision,
-)
-from datasets import Dataset
-
-# Chuẩn bị data
-eval_data = {
-    "question": [],
-    "answer": [],
-    "contexts": [],
-    "ground_truth": [],
-}
-
-for item in golden_dataset:
-    result = rag_pipeline.generate_with_citation(item["question"])
-    eval_data["question"].append(item["question"])
-    eval_data["answer"].append(result["answer"])
-    eval_data["contexts"].append([c["content"] for c in result["sources"]])
-    eval_data["ground_truth"].append(item["expected_answer"])
-
-dataset = Dataset.from_dict(eval_data)
-
-# Chạy evaluation
-result = evaluate(
-    dataset,
-    metrics=[faithfulness, answer_relevancy, context_recall, context_precision],
-)
-print(result.to_pandas())
+```text
+group_project/
+|-- app.py
+|-- system_contracts.py
+|-- README.md
+|-- REPORT.md
+|-- src/
+|   |-- module_chat_ui/
+|   |-- module_dataset_creator/
+|   |-- module_evaluation/
+|   `-- module_rag_core/
+`-- tests/
 ```
 
-### Code mẫu — TruLens
+## Integration Contract
 
-```python
-from trulens.apps.custom import TruCustomApp, instrument
-from trulens.core import Feedback
-from trulens.providers.openai import OpenAI as TruOpenAI
+`system_contracts.py` defines:
 
-provider = TruOpenAI()
+- `RAGConfig`
+- `Document`
+- `ChatMessage`
+- `RAGAnswer`
+- `RAGCoreInterface`
 
-# Define feedback functions
-f_faithfulness = Feedback(provider.groundedness_measure_with_cot_reasons).on_output()
-f_relevance = Feedback(provider.relevance).on_input_output()
-f_context_relevance = Feedback(provider.context_relevance).on_input()
+The UI and evaluation modules call only `RAGCoreInterface`. This keeps each
+member's module replaceable without rewriting the rest of the app.
 
-# Wrap RAG pipeline
-tru_rag = TruCustomApp(
-    rag_pipeline,
-    app_name="DrugLaw_RAG",
-    feedbacks=[f_faithfulness, f_relevance, f_context_relevance],
-)
+## Run Chat UI
 
-# Run evaluation
-with tru_rag as recording:
-    for item in golden_dataset:
-        rag_pipeline.generate_with_citation(item["question"])
-
-# View dashboard
-from trulens.dashboard import run_dashboard
-run_dashboard()
-```
-
-### Deliverable Evaluation
-
-- [ ] File `group_project/evaluation/golden_dataset.json` — 15+ cặp Q&A
-- [ ] File `group_project/evaluation/eval_pipeline.py` — script chạy evaluation
-- [ ] File `group_project/evaluation/results.md` — bảng điểm + phân tích
-- [ ] So sánh A/B ít nhất 2 configs
-
----
-
-## Yêu Cầu Chung
-
-1. **Tích hợp pipeline** từ bài cá nhân của các thành viên
-2. **Demo hoạt động được** trong buổi trình bày (chạy local hoặc deploy)
-3. **Evaluation pipeline** chạy được và có báo cáo kết quả
-4. **Code push lên repository** chung của nhóm
-5. **README** mô tả kiến trúc và phân công (điền bên dưới)
-
----
-
-## Kiến Trúc Hệ Thống
-
-```
-[Vẽ diagram kiến trúc ở đây]
-```
-
----
-
-## Phân Công Công Việc
-
-| Thành viên | MSSV | Nhiệm vụ | Trạng thái |
-|-----------|------|----------|------------|
-| | | | |
-| | | | |
-| | | | |
-| | | | |
-
----
-
-## Hướng Dẫn Chạy
+From the repository root:
 
 ```bash
-# Cài đặt dependencies
-pip install -r requirements.txt
-
-# Chạy app
-streamlit run app.py
-# hoặc
-chainlit run app.py
+streamlit run group_project/app.py
 ```
 
----
+The UI tries to load `src.module_rag_core.rag_engine.RAGCoreEngine`. If Gemini,
+Weaviate, or API keys are unavailable, the integrated RAG core falls back to
+offline demo documents so the chat flow still works for local testing.
 
-## Lưu ý: Hãy giữ lại repo này nếu như bạn học track 3 giai đoạn 2, chúng ta sẽ phát triển tiếp dự án lên knowledge graph để khắc phục các câu hỏi hóc búa khi có các câu hỏi khó.
+## Run Dataset Validation
+
+```bash
+python group_project/src/module_dataset_creator/validate_schema.py
+```
+
+## Run Evaluation
+
+```bash
+python group_project/src/module_evaluation/eval_pipeline.py
+```
+
+Outputs:
+
+- `group_project/src/module_evaluation/results.md`
+- `group_project/REPORT.md`
+
+## Import Data To Weaviate
+
+After `data/standardized/legal` and `data/standardized/news` are available,
+load them into the RAG core vector store with:
+
+```bash
+python group_project/import_data.py
+```
+
+The script reads `GEMINI_API_KEY`, `WEAVIATE_URL`, and `WEAVIATE_API_KEY` from
+`.env`. If Gemini is not configured, it uses zero vectors so the import flow can
+still be tested.
+
+## Run Integration Test
+
+```bash
+pytest group_project/tests/test_system_integration.py -v
+```
+
+## Current Status
+
+- Dataset creator has a 15+ item golden dataset and schema validator.
+- RAG core is integrated from Nguyen Tien Dat's branch with offline-safe
+  Gemini and Weaviate fallbacks plus a Weaviate import script.
+- Chat UI loads the shared RAG core through `RAGCoreInterface`.
+- Evaluation has 4 metrics, 2 A/B configs, and worst-performer reporting.

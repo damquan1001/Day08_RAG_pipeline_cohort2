@@ -1,7 +1,20 @@
 from __future__ import annotations
 
-from dotenv import load_dotenv
+import sys
+from pathlib import Path
+
 import streamlit as st
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    def load_dotenv(*args, **kwargs):
+        return False
+
+
+GROUP_PROJECT_DIR = Path(__file__).resolve().parents[2]
+if str(GROUP_PROJECT_DIR) not in sys.path:
+    sys.path.insert(0, str(GROUP_PROJECT_DIR))
 
 from system_contracts import RAGConfig, RAGCoreInterface
 from src.module_chat_ui.app_state import (
